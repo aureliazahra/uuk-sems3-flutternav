@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:uuk_sems3/pages/catalog.dart';
+import 'package:uuk_sems3/pages/product_detail_.page.dart';
 import 'package:uuk_sems3/widgets/needhelp.dart';
+import 'package:uuk_sems3/widgets/other.dart';
+import 'package:uuk_sems3/models/product_model.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -13,7 +17,6 @@ class _HomePageState extends State<HomePage>
   late TabController _tabController;
 
   @override
-
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
@@ -96,26 +99,23 @@ class _HomePageState extends State<HomePage>
                     unselectedLabelColor: Colors.black54,
                     labelStyle: const TextStyle(fontWeight: FontWeight.w600),
                     tabs: [
-                      Tab(child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text("Wedding"),
-                        ],
+                      Tab(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [const Text("Wedding")],
+                        ),
                       ),
+                      Tab(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [const Text("Decor")],
+                        ),
                       ),
-                      Tab(child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text("Decor"),
-                        ],
-                      ),
-                      ),
-                      Tab(child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text("Gift"),
-                        ],
-                      ),
+                      Tab(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [const Text("Gift")],
+                        ),
                       ),
                     ],
                   ),
@@ -130,13 +130,96 @@ class _HomePageState extends State<HomePage>
       body: TabBarView(
         controller: _tabController,
         children: [
-          NeedHelp(),
+          SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 10),
+                NeedHelp(),
+                SizedBox(height: 2),
+                OtherMenu(),
+                SizedBox(height: 40),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 50),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Popularity",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const CatalogPage(),
+                            ),
+                          );
+                        },
+                        child: Text("See all"),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 10),
+                // slder produk populer
+                SizedBox(
+                  height: 180,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: products.length,
+                    itemBuilder: (context, index) {
+                      final product = products[index];
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) =>
+                                  ProductDetailPage(product: product),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          width: 150,
+                          margin: const EdgeInsets.only(right: 12),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            image: DecorationImage(
+                              image: AssetImage(product.image),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          child: Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Container(
+                              color: Colors.black45,
+                              padding: const EdgeInsets.all(6),
+                              child: Text(
+                                product.name,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
           Center(child: Text("Halaman Decor")),
           Center(child: Text("Halaman Gift")),
         ],
       ),
-
-      
     );
   }
 }

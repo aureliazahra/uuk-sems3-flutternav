@@ -6,7 +6,7 @@ class NeedHelp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-  padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+  padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [_buildHelpCard(), const SizedBox(height: 20)],
@@ -48,7 +48,7 @@ class NeedHelp extends StatelessWidget {
               ],
             ),
           ),
-          const Icon(Icons.calendar_month, color: Colors.white, size: 40),
+          const Icon(Icons.calendar_month, color: Colors.white, size: 50),
         ],
       ),
     );
