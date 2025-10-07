@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uuk_sems3/widgets/needhelp.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -29,7 +30,7 @@ class _HomePageState extends State<HomePage>
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(200),
+        preferredSize: const Size.fromHeight(170),
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
@@ -88,7 +89,7 @@ class _HomePageState extends State<HomePage>
                     controller: _tabController,
                     isScrollable: false,
                     indicator: BoxDecoration(
-                      color: const Color(0xffa78bfa), // warna ungu lembut
+                      color: const Color(0xFF9682B6), // warna ungu lembut
                       borderRadius: BorderRadius.circular(5),
                     ),
                     labelColor: Colors.white,
@@ -128,12 +129,14 @@ class _HomePageState extends State<HomePage>
       // Isi konten tab
       body: TabBarView(
         controller: _tabController,
-        children: const [
-          Center(child: Text("Halaman Wedding")),
+        children: [
+          NeedHelp(),
           Center(child: Text("Halaman Decor")),
           Center(child: Text("Halaman Gift")),
         ],
       ),
+
+      
     );
   }
 }
