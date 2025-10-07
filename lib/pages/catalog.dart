@@ -15,7 +15,7 @@ class CatalogPage extends StatelessWidget {
           itemCount: products.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            childAspectRatio: 0.8,
+            childAspectRatio: 0.95, // lebih proporsional
             crossAxisSpacing: 10,
             mainAxisSpacing: 10,
           ),
@@ -31,8 +31,6 @@ class CatalogPage extends StatelessWidget {
                 );
               },
               child: Container(
-                width: 310,
-                margin: const EdgeInsets.only(right: 20),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
@@ -47,63 +45,57 @@ class CatalogPage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(height: 10),
-                    // ⬇️ Container gambar (di tengah, rounded)
-                    AspectRatio(
-                      aspectRatio: 1.2, // biar proporsional
+                    Expanded( // ⬅️ biar gambar menyesuaikan tinggi card
                       child: Container(
-                        width: 290,
-                        height: 200,
+                        margin: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
-                          color: const Color(0xfff3f2f7), // abu lembut
+                          color: const Color(0xfff3f2f7),
                           borderRadius: BorderRadius.circular(16),
                         ),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(16),
-                          child: Image.asset(product.image, fit: BoxFit.cover),
+                          child: Image.asset(
+                            product.image,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                     ),
-
-                    const SizedBox(height: 12),
-
-                    // ⬇️ Bagian teks dan rating
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 6),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // Nama produk + rating
                           Text(
                             product.name,
                             style: const TextStyle(
-                              fontSize: 18,
+                              fontSize: 16,
                               fontWeight: FontWeight.w600,
                               color: Colors.black,
                             ),
                           ),
-                          const SizedBox(height: 8),
+                          const SizedBox(height: 2),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
                                 "\$${product.price.toStringAsFixed(0)}",
                                 style: const TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 15,
                                   fontWeight: FontWeight.w600,
                                   color: Color(0xff9682B6),
                                 ),
                               ),
-                              IconButton(
-                                icon: const Icon(
-                                  Icons.shopping_cart_outlined,
-                                  color: Color(0xff9682B6),
-                                ),
-                                onPressed: () {
-                                  // aksi saat tombol troli ditekan
-                                  // contoh: tambahkan ke keranjang
+                              InkWell(
+                                onTap: () {
                                   print("Added ${product.name} to cart");
                                 },
+                                child: const Icon(
+                                  Icons.shopping_cart_outlined,
+                                  color: Color(0xff9682B6),
+                                  size: 22,
+                                ),
                               ),
                             ],
                           ),
