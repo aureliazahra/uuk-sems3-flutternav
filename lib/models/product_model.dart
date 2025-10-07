@@ -33,4 +33,25 @@ final List<Product> products = [
     price: 80,
     rating: 4.0,
   ),
+
+  Product(
+    name: "Impression",
+    image: "assets/images/impression.png",
+    price: 80,
+    rating: 4.0,
+  ),
+
+  Product(
+    name: "Soft",
+    image: "assets/images/soft.png",
+    price: 80,
+    rating: 4.0,
+  ),
+
+  Product(
+    name: "Authentic",
+    image: "assets/images/authentic.png",
+    price: 80,
+    rating: 4.0,
+  ),
 ];

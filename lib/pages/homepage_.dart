@@ -4,6 +4,7 @@ import 'package:uuk_sems3/pages/product_detail_.page.dart';
 import 'package:uuk_sems3/widgets/needhelp.dart';
 import 'package:uuk_sems3/widgets/other.dart';
 import 'package:uuk_sems3/models/product_model.dart';
+import 'package:uuk_sems3/widgets/slider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -128,6 +129,7 @@ class _HomePageState extends State<HomePage>
 
       // Isi konten tab
       body: TabBarView(
+        physics: const NeverScrollableScrollPhysics(),
         controller: _tabController,
         children: [
           SingleChildScrollView(
@@ -167,52 +169,7 @@ class _HomePageState extends State<HomePage>
                 ),
                 const SizedBox(height: 10),
                 // slder produk populer
-                SizedBox(
-                  height: 180,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: products.length,
-                    itemBuilder: (context, index) {
-                      final product = products[index];
-                      return GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) =>
-                                  ProductDetailPage(product: product),
-                            ),
-                          );
-                        },
-                        child: Container(
-                          width: 150,
-                          margin: const EdgeInsets.only(right: 12),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            image: DecorationImage(
-                              image: AssetImage(product.image),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          child: Align(
-                            alignment: Alignment.bottomCenter,
-                            child: Container(
-                              color: Colors.black45,
-                              padding: const EdgeInsets.all(6),
-                              child: Text(
-                                product.name,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
+                const PopularSlider(),
               ],
             ),
           ),
