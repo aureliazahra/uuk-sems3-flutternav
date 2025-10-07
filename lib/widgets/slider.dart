@@ -43,7 +43,6 @@ class PopularSlider extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 10),
-
                   // ⬇️ Container gambar (di tengah, rounded)
                   Center(
                     child: Container(
@@ -80,7 +79,7 @@ class PopularSlider extends StatelessWidget {
                               style: const TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,
-                                color: Color(0xff7C4DFF),
+                                color: Color(0xff9682B6),
                               ),
                             ),
                             Row(

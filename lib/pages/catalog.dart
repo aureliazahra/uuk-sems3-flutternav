@@ -30,33 +30,85 @@ class CatalogPage extends StatelessWidget {
                   ),
                 );
               },
-              child: Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
+              child: Container(
+                width: 310,
+                margin: const EdgeInsets.only(right: 20),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 8,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(
-                      child: ClipRRect(
-                        borderRadius:
-                            const BorderRadius.vertical(top: Radius.circular(12)),
-                        child: Image.asset(
-                          product.image,
-                          fit: BoxFit.cover,
-                          width: double.infinity,
+                    const SizedBox(height: 10),
+                    // ⬇️ Container gambar (di tengah, rounded)
+                    AspectRatio(
+                      aspectRatio: 1.2, // biar proporsional
+                      child: Container(
+                        width: 290,
+                        height: 200,
+                        decoration: BoxDecoration(
+                          color: const Color(0xfff3f2f7), // abu lembut
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(16),
+                          child: Image.asset(product.image, fit: BoxFit.cover),
                         ),
                       ),
                     ),
+
+                    const SizedBox(height: 12),
+
+                    // ⬇️ Bagian teks dan rating
                     Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: Text(product.name,
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 16)),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: Text("\$${product.price.toStringAsFixed(0)}"),
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Nama produk + rating
+                          Text(
+                            product.name,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "\$${product.price.toStringAsFixed(0)}",
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  color: Color(0xff9682B6),
+                                ),
+                              ),
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.shopping_cart_outlined,
+                                  color: Color(0xff9682B6),
+                                ),
+                                onPressed: () {
+                                  // aksi saat tombol troli ditekan
+                                  // contoh: tambahkan ke keranjang
+                                  print("Added ${product.name} to cart");
+                                },
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
