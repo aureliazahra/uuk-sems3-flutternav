@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:uuk_sems3/pages/catalog.dart';
 import 'package:uuk_sems3/pages/product_detail_.page.dart';
+import 'package:uuk_sems3/pages/profile.dart';
 import 'package:uuk_sems3/widgets/needhelp.dart';
 import 'package:uuk_sems3/widgets/other.dart';
 import 'package:uuk_sems3/models/product_model.dart';
@@ -72,8 +73,12 @@ class _HomePageState extends State<HomePage>
                     IconButton(
                       icon: const Icon(Icons.person_outline),
                       onPressed: () {
-                        // navigasi ke halaman profil
-                        // Navigator.pushNamed(context, '/profile');
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const ProfilePage(),
+                          ),
+                        );
                       },
                     ),
                   ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:carousel_slider_plus/carousel_slider_plus.dart' as cs;
 import '../models/product_model.dart';
 
 class ProductDetailPage extends StatefulWidget {
@@ -11,43 +12,43 @@ class ProductDetailPage extends StatefulWidget {
 
 class _ProductDetailPageState extends State<ProductDetailPage> {
   int quantity = 1;
-  int currentImageIndex = 0;
-
-  final List<String> sliderImages = [
-    'assets/images/spark.png',
-    'assets/images/spark.png',
-    'assets/images/spark.png',
-  ];
+  int _currentImage = 0;
 
   @override
   Widget build(BuildContext context) {
+    final List<String> images = widget.product.images ?? [widget.product.image];
+
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        foregroundColor: Colors.black, // warna ikon back
-      ),
       backgroundColor: Colors.white,
       body: Column(
         children: [
-          // 🔹 Bagian atas: slider gambar
+          
           Stack(
             children: [
-              SizedBox(
-                height: 300,
-                width: double.infinity,
-                child: PageView.builder(
-                  itemCount: sliderImages.length,
-                  onPageChanged: (index) {
-                    setState(() => currentImageIndex = index);
-                  },
-                  itemBuilder: (context, index) {
-                    return Image.asset(sliderImages[index], fit: BoxFit.cover);
+              cs.CarouselSlider(
+                items: images.map((img) {
+                  return ClipRRect(
+                    borderRadius: const BorderRadius.vertical(
+                      bottom: Radius.circular(20),
+                    ),
+                    child: Image.asset(
+                      img,
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                    ),
+                  );
+                }).toList(),
+                options: cs.CarouselOptions(
+                  height: 350,
+                  viewportFraction: 1.0,
+                  enableInfiniteScroll: false,
+                  onPageChanged: (index, reason) {
+                    setState(() => _currentImage = index);
                   },
                 ),
               ),
 
-              // 🔹 Tombol back (opsional)
+              
               Positioned(
                 top: 40,
                 left: 16,
@@ -57,36 +58,36 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 ),
               ),
 
-              // 🔹 Garis indikator slider
+              
               Positioned(
-                bottom: 0,
+                bottom: 12, 
                 left: 0,
                 right: 0,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: List.generate(
-                    sliderImages.length,
-                    (index) => Container(
-                      margin: const EdgeInsets.symmetric(
-                        horizontal: 3,
-                        vertical: 8,
-                      ),
-                      height: 3,
-                      width: currentImageIndex == index ? 30 : 12,
+                  children: images.asMap().entries.map((entry) {
+                    final bool isActive = _currentImage == entry.key;
+                    return AnimatedContainer(
+                      duration: const Duration(milliseconds: 250),
+                      margin: const EdgeInsets.symmetric(horizontal: 3),
+                      width: isActive
+                          ? 24
+                          : 10, 
+                      height: 4,
                       decoration: BoxDecoration(
-                        color: currentImageIndex == index
-                            ? const Color(0xff9682B6)
-                            : Colors.grey[300],
-                        borderRadius: BorderRadius.circular(5),
+                        color: isActive
+                            ? const Color(0xff9682B6) 
+                            : Colors.grey[300], 
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                    ),
-                  ),
+                    );
+                  }).toList(),
                 ),
               ),
             ],
           ),
 
-          // 🔹 Bagian bawah: detail produk
+          
           Expanded(
             child: Container(
               width: double.infinity,
@@ -99,7 +100,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Nama + harga
+                    
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -124,7 +125,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     const SizedBox(height: 8),
                     const Divider(),
 
-                    // Availability & rating
+                    
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -168,29 +169,27 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
 
                     const SizedBox(height: 20),
 
-                    // Quantity
-                    Row(// Quantity
                     
-
-                    
+                    Row(
+                      
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         const Text(
-                      "Quantity",
-                      style: TextStyle(fontWeight: FontWeight.w600),
-                    ),
-                    const SizedBox(height: 8),
-                        const SizedBox(width: 90), // biar posisi rata kiri
+                          "Quantity",
+                          style: TextStyle(fontWeight: FontWeight.w600),
+                        ),
+                        const SizedBox(height: 8),
+                        const SizedBox(width: 90), 
                         Container(
                           height: 36,
                           decoration: BoxDecoration(
-                            color: const Color(0xfff3f2f7), // abu lembut
+                            color: const Color(0xfff3f2f7), 
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              // Tombol -
+                              
                               InkWell(
                                 borderRadius: BorderRadius.circular(8),
                                 onTap: () {
@@ -213,7 +212,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                 ),
                               ),
 
-                              // Angka quantity
+                              
                               Container(
                                 width: 40,
                                 alignment: Alignment.center,
@@ -230,7 +229,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                 ),
                               ),
 
-                              // Tombol +
+                              
                               InkWell(
                                 borderRadius: BorderRadius.circular(8),
                                 onTap: () {
@@ -258,7 +257,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
 
                     const SizedBox(height: 25),
 
-                    // Total
+                    
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -282,7 +281,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
 
                     const SizedBox(height: 20),
 
-                    // Tombol Add to cart
+                    
                     SizedBox(
                       width: double.infinity,
                       height: 50,
@@ -305,7 +304,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                           ),
                         ),
                         onPressed: () {
-                          // aksi add to cart
+                          
                           print("Added ${widget.product.name} to cart");
                         },
                       ),
