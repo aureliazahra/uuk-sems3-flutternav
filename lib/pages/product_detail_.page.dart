@@ -22,6 +22,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        foregroundColor: Colors.black, // warna ikon back
+      ),
       backgroundColor: Colors.white,
       body: Column(
         children: [
