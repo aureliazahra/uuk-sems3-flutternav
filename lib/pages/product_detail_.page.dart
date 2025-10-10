@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider_plus/carousel_slider_plus.dart' as cs;
 import '../models/product_model.dart';
+import '../models/cart_data.dart';
+import '../models/cart_models.dart';
+
 
 class ProductDetailPage extends StatefulWidget {
   final Product product;
@@ -22,7 +25,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
       backgroundColor: Colors.white,
       body: Column(
         children: [
-          
           Stack(
             children: [
               cs.CarouselSlider(
@@ -48,7 +50,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 ),
               ),
 
-              
               Positioned(
                 top: 40,
                 left: 16,
@@ -58,9 +59,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 ),
               ),
 
-              
               Positioned(
-                bottom: 12, 
+                bottom: 12,
                 left: 0,
                 right: 0,
                 child: Row(
@@ -70,14 +70,12 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     return AnimatedContainer(
                       duration: const Duration(milliseconds: 250),
                       margin: const EdgeInsets.symmetric(horizontal: 3),
-                      width: isActive
-                          ? 24
-                          : 10, 
+                      width: isActive ? 24 : 10,
                       height: 4,
                       decoration: BoxDecoration(
                         color: isActive
-                            ? const Color(0xff9682B6) 
-                            : Colors.grey[300], 
+                            ? const Color(0xff9682B6)
+                            : Colors.grey[300],
                         borderRadius: BorderRadius.circular(10),
                       ),
                     );
@@ -87,7 +85,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             ],
           ),
 
-          
           Expanded(
             child: Container(
               width: double.infinity,
@@ -100,7 +97,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -125,7 +121,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     const SizedBox(height: 8),
                     const Divider(),
 
-                    
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -169,9 +164,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
 
                     const SizedBox(height: 20),
 
-                    
                     Row(
-                      
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         const Text(
@@ -179,17 +172,16 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                           style: TextStyle(fontWeight: FontWeight.w600),
                         ),
                         const SizedBox(height: 8),
-                        const SizedBox(width: 90), 
+                        const SizedBox(width: 90),
                         Container(
                           height: 36,
                           decoration: BoxDecoration(
-                            color: const Color(0xfff3f2f7), 
+                            color: const Color(0xfff3f2f7),
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              
                               InkWell(
                                 borderRadius: BorderRadius.circular(8),
                                 onTap: () {
@@ -212,7 +204,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                 ),
                               ),
 
-                              
                               Container(
                                 width: 40,
                                 alignment: Alignment.center,
@@ -229,7 +220,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                 ),
                               ),
 
-                              
                               InkWell(
                                 borderRadius: BorderRadius.circular(8),
                                 onTap: () {
@@ -257,7 +247,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
 
                     const SizedBox(height: 25),
 
-                    
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -281,7 +270,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
 
                     const SizedBox(height: 20),
 
-                    
                     SizedBox(
                       width: double.infinity,
                       height: 50,
@@ -303,9 +291,21 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        onPressed: () {
+                        onPressed: 
+                          () {
+                            CartData.addToCart(
+                              CartItem(
+                                product: widget.product,
+                                quantity: quantity,
+                              ),
+                            );
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text("Added to cart!"),
+                                backgroundColor: Color(0xff9682B6),
+                              ),
+                            );
                           
-                          print("Added ${widget.product.name} to cart");
                         },
                       ),
                     ),
