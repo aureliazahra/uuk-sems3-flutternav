@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:uuk_sems3/pages/catalog.dart';
-import 'package:uuk_sems3/pages/product_detail_.page.dart';
 import 'package:uuk_sems3/pages/profile.dart';
-import 'package:uuk_sems3/widgets/needhelp.dart';
-import 'package:uuk_sems3/widgets/other.dart';
-import 'package:uuk_sems3/models/product_model.dart';
-import 'package:uuk_sems3/widgets/slider.dart';
+import 'package:uuk_sems3/tab/decor.dart';
+import 'package:uuk_sems3/tab/gift.dart';
+import 'package:uuk_sems3/tab/wedding.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -43,18 +40,15 @@ class _HomePageState extends State<HomePage>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Bar atas: teks FLORIST + ikon profil
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      "FLORIST",
-                      style: TextStyle(
-                        letterSpacing: 4,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black87,
-                      ),
+                const Center(
+                  child: Text(
+                    "FLORIST",
+                    style: TextStyle(
+                      letterSpacing: 4,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black87,
                     ),
-                  ],
+                  ),
                 ),
 
                 const SizedBox(height: 20),
@@ -85,6 +79,7 @@ class _HomePageState extends State<HomePage>
                 ),
 
                 const SizedBox(height: 20),
+
                 // Tab bar: Wedding / Decor / Gift
                 Container(
                   height: 40,
@@ -94,35 +89,20 @@ class _HomePageState extends State<HomePage>
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: TabBar(
-                    indicatorSize: TabBarIndicatorSize.tab,
                     controller: _tabController,
+                    indicatorSize: TabBarIndicatorSize.tab,
                     isScrollable: false,
                     indicator: BoxDecoration(
-                      color: const Color(0xFF9682B6), // warna ungu lembut
+                      color: const Color(0xFF9682B6),
                       borderRadius: BorderRadius.circular(5),
                     ),
                     labelColor: Colors.white,
                     unselectedLabelColor: Colors.black54,
                     labelStyle: const TextStyle(fontWeight: FontWeight.w600),
-                    tabs: [
-                      Tab(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [const Text("Wedding")],
-                        ),
-                      ),
-                      Tab(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [const Text("Decor")],
-                        ),
-                      ),
-                      Tab(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [const Text("Gift")],
-                        ),
-                      ),
+                    tabs: const [
+                      Tab(text: "Wedding"),
+                      Tab(text: "Decor"),
+                      Tab(text: "Gift"),
                     ],
                   ),
                 ),
@@ -132,14 +112,14 @@ class _HomePageState extends State<HomePage>
         ),
       ),
 
-      // Isi konten tab
+      // ✅ Hanya satu TabBarView
       body: TabBarView(
-        physics: const NeverScrollableScrollPhysics(),
         controller: _tabController,
-        children: [
-          S
-          Center(child: Text("Halaman Decor")),
-          Center(child: Text("Halaman Gift")),
+        physics: const NeverScrollableScrollPhysics(), // biar hanya bisa klik, gak bisa swipe
+        children: const [
+          WeddingTab(),
+          DecorTab(),
+          GiftTab(),
         ],
       ),
     );

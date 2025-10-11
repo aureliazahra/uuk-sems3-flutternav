@@ -12,7 +12,7 @@ class Product {
     required this.price,
     required this.rating,
     this.inStock = true,
-    this.images
+    this.images,
   });
 }
 
@@ -50,7 +50,6 @@ final List<Product> products = [
     price: 80,
     rating: 4.0,
   ),
-
   Product(
     name: "Impression",
     image: "assets/images/impression.png",
@@ -62,7 +61,6 @@ final List<Product> products = [
     price: 80,
     rating: 4.0,
   ),
-
   Product(
     name: "Soft",
     image: "assets/images/soft.png",
@@ -74,7 +72,6 @@ final List<Product> products = [
     price: 80,
     rating: 4.0,
   ),
-
   Product(
     name: "Authentic",
     image: "assets/images/authentic.png",
@@ -87,3 +84,16 @@ final List<Product> products = [
     rating: 4.0,
   ),
 ];
+
+final Map<String, String> productCategories = {
+  "Spark": "wedding",
+  "Magic": "wedding",
+  "White": "decor",
+  "Impression": "decor",
+  "Soft": "gift",
+  "Authentic": "gift",
+};
+
+List<Product> getProductsByCategory(String category) {
+  return products.where((p) => productCategories[p.name] == category).toList();
+}

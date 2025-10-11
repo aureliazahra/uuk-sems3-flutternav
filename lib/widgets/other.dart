@@ -1,46 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:uuk_sems3/pages/catalog.dart';
 
-class OtherMenu extends StatelessWidget {
-  const OtherMenu({super.key});
+class OtherMenuTemplate extends StatelessWidget {
+  final List<Map<String, dynamic>> items;
+
+  const OtherMenuTemplate({
+    super.key,
+    required this.items,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final List<Map<String, dynamic>> menuItems = [
-      {
-        'image': 'assets/images/all.png',
-        'label': 'All',
-        'page': const CatalogPage(),
-      },
-      {'image': 'assets/images/bouquet.png', 'label': 'Bouquet'},
-      {'image': 'assets/images/table.png', 'label': 'Table'},
-      {'image': 'assets/images/atlas.png', 'label': 'Aisle'},
-      {'image': 'assets/images/acs.png', 'label': 'Accessories'},
-    ];
-
     return Center(
-      // ⬅️ Menjadikan seluruh row di tengah
       child: SizedBox(
-        height: 100, // cukup tinggi supaya konten punya ruang di tengah
+        height: 100,
         child: Align(
-          alignment: Alignment.center, // ⬅️ Pastikan isi ListView di tengah
+          alignment: Alignment.center,
           child: ListView.separated(
             shrinkWrap: true,
             scrollDirection: Axis.horizontal,
-            itemCount: menuItems.length,
+            itemCount: items.length,
             separatorBuilder: (context, index) => const SizedBox(width: 25),
             itemBuilder: (context, index) {
-              final item = menuItems[index];
-              return GestureDetector(
+              final item = items[index];
+              return InkWell(
+                borderRadius: BorderRadius.circular(12),
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (_) => item['page']),
-                  );
+                  final page = item['page'];
+                  if (page != null) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => page),
+                    );
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text("${item['label']} page coming soon!"),
+                      ),
+                    );
+                  }
                 },
                 child: Column(
-                  mainAxisAlignment:
-                      MainAxisAlignment.center, // ⬅️ teks + gambar di tengah
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(12),

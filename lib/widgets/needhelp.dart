@@ -1,15 +1,27 @@
 import 'package:flutter/material.dart';
 
-class NeedHelp extends StatelessWidget {
-  const NeedHelp({super.key});
+class NeedHelpTemplate extends StatelessWidget {
+  final String title;
+  final String subtitle;
+  final Color color;
+
+  const NeedHelpTemplate({
+    super.key,
+    required this.title,
+    required this.subtitle,
+    this.color = const Color(0xFF9682B6),
+  });
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-  padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [_buildHelpCard(), const SizedBox(height: 20)],
+        children: [
+          _buildHelpCard(),
+          const SizedBox(height: 20),
+        ],
       ),
     );
   }
@@ -20,7 +32,7 @@ class NeedHelp extends StatelessWidget {
       height: 110,
       padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
-        color: const Color(0xFF9682B6),
+        color: color,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
@@ -28,22 +40,22 @@ class NeedHelp extends StatelessWidget {
         children: [
           Expanded(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center, 
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
+              children: [
                 Text(
-                  "Need help?",
-                  style: TextStyle(
+                  title,
+                  style: const TextStyle(
                     letterSpacing: 2,
                     color: Colors.white,
-                    fontSize: 27,
+                    fontSize: 25,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 2),
+                const SizedBox(height: 2),
                 Text(
-                  "Make an appointment or chat with us.",
-                  style: TextStyle(color: Colors.white70),
+                  subtitle,
+                  style: const TextStyle(color: Colors.white70),
                 ),
               ],
             ),
