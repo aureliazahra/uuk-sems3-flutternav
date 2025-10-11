@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:uuk_sems3/widgets/needhelp.dart';
 import 'package:uuk_sems3/widgets/other.dart';
 import 'package:uuk_sems3/widgets/slider.dart';
-import '../models/product_model.dart';
 
 class DecorTab extends StatelessWidget {
   const DecorTab({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final decorProducts = products.take(3).toList(); // contoh filter produk
 
     return SingleChildScrollView(
       child: Column(
@@ -23,9 +21,9 @@ class DecorTab extends StatelessWidget {
           const SizedBox(height: 2),
           const OtherMenuTemplate(
             items: [
-              {'image': 'assets/images/table.png', 'label': 'Table'},
-              {'image': 'assets/images/atlas.png', 'label': 'Aisle'},
-              {'image': 'assets/images/acs.png', 'label': 'Decor Items'},
+              {'image': 'assets/images/bday.jpg', 'label': 'Birthday'},
+              {'image': 'assets/images/weddec.jpg', 'label': 'Wedding'},
+              {'image': 'assets/images/promdec.jpg', 'label': 'Prom'},
             ],
           ),
           const SizedBox(height: 40),
@@ -37,7 +35,7 @@ class DecorTab extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 10),
-          PopularSliderTemplate(products: decorProducts),
+          PopularSliderTemplate(category: 'decor'),
         ],
       ),
     );

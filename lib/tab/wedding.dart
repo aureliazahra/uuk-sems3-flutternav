@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:uuk_sems3/widgets/needhelp.dart';
 import 'package:uuk_sems3/widgets/other.dart';
 import 'package:uuk_sems3/widgets/slider.dart';
-import '../models/product_model.dart';
 import '../pages/catalog.dart';
 
 class WeddingTab extends StatelessWidget {
@@ -52,7 +51,7 @@ class WeddingTab extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 10),
-          PopularSliderTemplate(products: products),
+          PopularSliderTemplate(category: "wedding"),
         ],
       ),
     );

@@ -3,25 +3,24 @@ import 'package:uuk_sems3/pages/product_detail_.page.dart';
 import '../models/product_model.dart';
 
 class PopularSliderTemplate extends StatelessWidget {
-  final List<Product> products;
-  final String title;
+  final String category;
 
-  const PopularSliderTemplate({
-    super.key,
-    required this.products,
-    this.title = "Popular Items",
-  });
+  const PopularSliderTemplate({super.key, required this.category});
 
   @override
   Widget build(BuildContext context) {
+    // ambil produk sesuai kategori
+    final filteredProducts = getProductsByCategory(category);
+
     return SizedBox(
       height: 300,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: products.length,
+        itemCount: filteredProducts.length,
         padding: const EdgeInsets.only(left: 50),
         itemBuilder: (context, index) {
-          final product = products[index];
+          final product = filteredProducts[index];
+
           return GestureDetector(
             onTap: () {
               Navigator.push(
@@ -72,15 +71,32 @@ class PopularSliderTemplate extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          product.name,
-                          style: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
-                            color: Color(0xff9682B6),
-                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              product.name,
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                                color: Color(0xff9682B6),
+                              ),
+                            ),
+                            Row(
+                              children: List.generate(
+                                5,
+                                (i) => Icon(
+                                  Icons.star,
+                                  size: 18,
+                                  color: i < product.rating.round()
+                                      ? Colors.amber
+                                      : Colors.grey[300],
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                        const SizedBox(height: 4),
+                        const SizedBox(height: 8),
                         Text(
                           "\$${product.price.toStringAsFixed(0)}",
                           style: const TextStyle(

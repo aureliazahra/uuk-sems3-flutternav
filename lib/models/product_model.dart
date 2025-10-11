@@ -16,6 +16,7 @@ class Product {
   });
 }
 
+// 🪷 Daftar produk
 final List<Product> products = [
   Product(
     name: "Spark",
@@ -83,17 +84,82 @@ final List<Product> products = [
     price: 80,
     rating: 4.0,
   ),
+  Product(
+    name: 'Birthday',
+    image: "assets/images/bday.jpg",
+    price: 200,
+    rating: 5.0,
+  ),
+  Product(
+    name: 'Wedding',
+    image: "assets/images/weddec.jpg",
+    price: 400,
+    rating: 4.9,
+  ),
+  Product(
+    name: 'Prom',
+    image: "assets/images/promdec.jpg",
+    price: 199,
+    rating: 4.5,
+  ),
+  Product(
+    name: 'Redbull F! Jacket',
+    image: 'assets/images/rb.jpg',
+    price: 99,
+    rating: 4.9,
+  ),
+  Product(
+    name: 'BMW M4',
+    image: 'assets/images/m4.jpg',
+    price: 1000,
+    rating: 5.0,
+  ),
+  Product(
+    name: 'Mercedez F1 T-Shirt',
+    image: 'assets/images/mcdz.jpg',
+    price: 70,
+    rating: 5.0,
+  ),
+  Product(
+    name: 'Rolex',
+    image: 'assets/images/rolex.jpg',
+    price: 1000,
+    rating: 4.8,
+  ),
+  Product(
+    name: 'White Dress',
+    image: 'assets/images/dress.jpg',
+    price: 90,
+    rating: 4.5,
+  ),
 ];
 
+// 🏷️ Kategori produk berdasarkan nama
 final Map<String, String> productCategories = {
   "Spark": "wedding",
   "Magic": "wedding",
-  "White": "decor",
-  "Impression": "decor",
-  "Soft": "gift",
-  "Authentic": "gift",
+  "White": "wedding",
+  "Impression": "weddng",
+  "Soft": "wedding",
+  "Authentic": "wedding",
+  'Birthday': 'decor',
+  'Wedding': 'decor',
+  'Prom': 'decor',
+  'Redbull F! Jacket': 'gift',
+  'BMW M4': 'gift',
+  'Mercedez F1 T-Shirt': 'gift',
+  'Rolex': 'gift',
+  'White Dress': 'gift',
 };
 
+// 🪞 Fungsi filter berdasarkan kategori
+
 List<Product> getProductsByCategory(String category) {
-  return products.where((p) => productCategories[p.name] == category).toList();
+  // pastikan hanya yang sesuai kategori
+  return products
+      .where(
+        (p) =>
+            productCategories[p.name]?.toLowerCase() == category.toLowerCase(),
+      )
+      .toList();
 }
