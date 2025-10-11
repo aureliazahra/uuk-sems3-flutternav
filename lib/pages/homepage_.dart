@@ -137,47 +137,7 @@ class _HomePageState extends State<HomePage>
         physics: const NeverScrollableScrollPhysics(),
         controller: _tabController,
         children: [
-          SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 10),
-                NeedHelp(),
-                SizedBox(height: 2),
-                OtherMenu(),
-                SizedBox(height: 40),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 50),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Popularity",
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => const CatalogPage(),
-                            ),
-                          );
-                        },
-                        child: Text("See all"),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 10),
-                // slder produk populer
-                const PopularSlider(),
-              ],
-            ),
-          ),
+          S
           Center(child: Text("Halaman Decor")),
           Center(child: Text("Halaman Gift")),
         ],
