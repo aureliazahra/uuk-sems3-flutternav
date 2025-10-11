@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uuk_sems3/pages/catalog.dart';
 import 'package:uuk_sems3/widgets/needhelp.dart';
 import 'package:uuk_sems3/widgets/other.dart';
 import 'package:uuk_sems3/widgets/slider.dart';
@@ -21,6 +22,11 @@ class DecorTab extends StatelessWidget {
           const SizedBox(height: 2),
           const OtherMenuTemplate(
             items: [
+              {
+                'image': 'assets/images/all.png',
+                'label': 'All',
+                'page': const CatalogPage(category: 'decor',),
+              },
               {'image': 'assets/images/bday.jpg', 'label': 'Birthday'},
               {'image': 'assets/images/weddec.jpg', 'label': 'Wedding'},
               {'image': 'assets/images/promdec.jpg', 'label': 'Prom'},

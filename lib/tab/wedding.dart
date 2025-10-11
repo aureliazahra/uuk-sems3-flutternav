@@ -20,14 +20,18 @@ class WeddingTab extends StatelessWidget {
           ),
           const SizedBox(height: 2),
           OtherMenuTemplate(
-        items: [
-          {'image': 'assets/images/all.png', 'label': 'All', 'page': const CatalogPage()},
-          {'image': 'assets/images/bouquet.png', 'label': 'Bouquet'},
-          {'image': 'assets/images/table.png', 'label': 'Table'},
-          {'image': 'assets/images/atlas.png', 'label': 'Aisle'},
-          {'image': 'assets/images/acs.png', 'label': 'Accessories'},
-        ],
-      ),
+            items: [
+              {
+                'image': 'assets/images/all.png',
+                'label': 'All',
+                'page': const CatalogPage(category: 'wedding',),
+              },
+              {'image': 'assets/images/bouquet.png', 'label': 'Bouquet'},
+              {'image': 'assets/images/table.png', 'label': 'Table'},
+              {'image': 'assets/images/atlas.png', 'label': 'Aisle'},
+              {'image': 'assets/images/acs.png', 'label': 'Accessories'},
+            ],
+          ),
           const SizedBox(height: 40),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 50),
@@ -42,10 +46,12 @@ class WeddingTab extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (_) => const CatalogPage()),
+                      MaterialPageRoute(
+                        builder: (_) => const CatalogPage(category: "wedding"),
+                      ),
                     );
                   },
-                  child: const Text("See all"),
+                  child: Text("See all"),
                 ),
               ],
             ),
