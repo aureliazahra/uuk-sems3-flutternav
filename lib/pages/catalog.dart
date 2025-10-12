@@ -3,17 +3,18 @@ import 'package:uuk_sems3/pages/product_detail_.page.dart';
 import '../models/product_model.dart';
 
 class CatalogPage extends StatelessWidget {
-  final String? category; // opsional
+  final String? category;
+  final String? subCategory;
 
-  const CatalogPage({super.key, this.category});
+  const CatalogPage({super.key, this.category, this.subCategory});
 
   @override
   Widget build(BuildContext context) {
-    // 🔹 kalau category ada → ambil produk sesuai kategori
-    // kalau tidak → ambil semua
-    final List<Product> filteredProducts = category == null
-        ? products
-        : getProductsByCategory(category!);
+    final List<Product> filteredProducts = getProductsByCategory(
+      mainCategory: category,
+      subCategory: subCategory,
+    );
+
 
     return Scaffold(
       appBar: AppBar(

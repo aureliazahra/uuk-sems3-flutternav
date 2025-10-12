@@ -16,10 +16,7 @@ class _CartPageState extends State<CartPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "My Cart",
-          style: TextStyle(color: Colors.black87),
-        ),
+        title: const Text("My Cart", style: TextStyle(color: Colors.black87)),
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         elevation: 1,
@@ -27,9 +24,7 @@ class _CartPageState extends State<CartPage> {
       ),
       backgroundColor: Colors.white,
       body: cartItems.isEmpty
-          ? const Center(
-              child: Text("Your cart is empty."),
-            )
+          ? const Center(child: Text("Your cart is empty."))
           : Column(
               children: [
                 Expanded(
@@ -39,7 +34,9 @@ class _CartPageState extends State<CartPage> {
                       final CartItem item = cartItems[index];
                       return Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 8),
+                          horizontal: 16,
+                          vertical: 8,
+                        ),
                         child: Container(
                           padding: const EdgeInsets.all(12),
                           decoration: BoxDecoration(
@@ -66,28 +63,34 @@ class _CartPageState extends State<CartPage> {
                                     Text(
                                       item.product.name,
                                       style: const TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 16),
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 16,
+                                      ),
                                     ),
                                     const SizedBox(height: 6),
                                     Text(
                                       "\$${item.product.price.toStringAsFixed(0)}",
                                       style: const TextStyle(
-                                          color: Color(0xff9682B6),
-                                          fontWeight: FontWeight.w500),
+                                        color: Color(0xff9682B6),
+                                        fontWeight: FontWeight.w500,
+                                      ),
                                     ),
                                     const SizedBox(height: 4),
                                     Text(
                                       "Qty: ${item.quantity}",
                                       style: const TextStyle(
-                                          color: Colors.black54, fontSize: 14),
+                                        color: Colors.black54,
+                                        fontSize: 14,
+                                      ),
                                     ),
                                   ],
                                 ),
                               ),
                               IconButton(
-                                icon: const Icon(Icons.delete_outline,
-                                    color: Colors.grey),
+                                icon: const Icon(
+                                  Icons.delete_outline,
+                                  color: Colors.grey,
+                                ),
                                 onPressed: () {
                                   setState(() {
                                     CartData.removeFromCart(item);
@@ -104,8 +107,10 @@ class _CartPageState extends State<CartPage> {
 
                 // total + checkout
                 Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24,
+                    vertical: 16,
+                  ),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     boxShadow: [
@@ -138,9 +143,12 @@ class _CartPageState extends State<CartPage> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xff9682B6),
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 24, vertical: 12),
+                            horizontal: 24,
+                            vertical: 12,
+                          ),
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
                         ),
                         child: const Text(
                           "Checkout",

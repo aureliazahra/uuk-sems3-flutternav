@@ -3,14 +3,15 @@ import 'package:uuk_sems3/pages/product_detail_.page.dart';
 import '../models/product_model.dart';
 
 class PopularSliderTemplate extends StatelessWidget {
-  final String category;
-
+  final String? category;
   const PopularSliderTemplate({super.key, required this.category});
 
   @override
   Widget build(BuildContext context) {
     // ambil produk sesuai kategori
-    final filteredProducts = getProductsByCategory(category);
+    final filteredProducts = getProductsByCategory(
+      mainCategory: category,
+    );
 
     return SizedBox(
       height: 300,

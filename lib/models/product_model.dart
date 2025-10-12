@@ -134,32 +134,38 @@ final List<Product> products = [
   ),
 ];
 
-// 🏷️ Kategori produk berdasarkan nama
-final Map<String, String> productCategories = {
-  "Spark": "wedding",
-  "Magic": "wedding",
-  "White": "wedding",
-  "Impression": "weddng",
-  "Soft": "wedding",
-  "Authentic": "wedding",
-  'Birthday': 'decor',
-  'Wedding': 'decor',
-  'Prom': 'decor',
-  'Redbull F! Jacket': 'gift',
-  'BMW M4': 'gift',
-  'Mercedez F1 T-Shirt': 'gift',
-  'Rolex': 'gift',
-  'White Dress': 'gift',
+// 🏷️ Kategori utama (utama) dan subkategori tambahan
+final Map<String, Map<String, String>> productCategories = {
+  "Spark": {"main": "wedding", "sub": "bouquet"},
+  "Magic": {"main": "wedding", "sub": "bouquet"},
+  "White": {"main": "wedding", "sub": "decoration"},
+  "Impression": {"main": "wedding", "sub": "table"},
+  "Soft": {"main": "wedding", "sub": "accessory"},
+  "Authentic": {"main": "wedding", "sub": "bouquet"},
+  "Birthday": {"main": "decor", "sub": "event"},
+  "Wedding": {"main": "decor", "sub": "event"},
+  "Prom": {"main": "decor", "sub": "event"},
+  "Redbull F! Jacket": {"main": "gift", "sub": "apparel"},
+  "BMW M4": {"main": "gift", "sub": "souvenir"},
+  "Mercedez F1 T-Shirt": {"main": "gift", "sub": "apparel"},
+  "Rolex": {"main": "gift", "sub": "souvenir"},
+  "White Dress": {"main": "gift", "sub": "dress"},
 };
 
-// 🪞 Fungsi filter berdasarkan kategori
+// 🪞 Fungsi filter berdasarkan kategori utama & subkategori
+List<Product> getProductsByCategory({
+  String? mainCategory,
+  String? subCategory,
+}) {
+  return products.where((p) {
+    final data = productCategories[p.name];
+    if (data == null) return false;
 
-List<Product> getProductsByCategory(String category) {
-  // pastikan hanya yang sesuai kategori
-  return products
-      .where(
-        (p) =>
-            productCategories[p.name]?.toLowerCase() == category.toLowerCase(),
-      )
-      .toList();
+    final matchMain = mainCategory == null ||
+        data['main']?.toLowerCase() == mainCategory.toLowerCase();
+    final matchSub = subCategory == null ||
+        data['sub']?.toLowerCase() == subCategory.toLowerCase();
+
+    return matchMain && matchSub;
+  }).toList();
 }
