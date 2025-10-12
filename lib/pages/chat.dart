@@ -25,7 +25,7 @@ class _ChatPageState extends State<ChatPage> {
     });
     _controller.clear();
 
-    // auto scroll
+    
     Future.delayed(const Duration(milliseconds: 100), () {
       _scrollController.animateTo(
         _scrollController.position.maxScrollExtent + 60,
@@ -34,7 +34,7 @@ class _ChatPageState extends State<ChatPage> {
       );
     });
 
-    // rspon bot 
+    
     Future.delayed(const Duration(seconds: 1), () {
       setState(() {
         _messages.add({
@@ -65,7 +65,7 @@ class _ChatPageState extends State<ChatPage> {
       ),
       body: Column(
         children: [
-          // daftar pesan
+          
           Expanded(
             child: ListView.builder(
               controller: _scrollController,
@@ -119,7 +119,7 @@ class _ChatPageState extends State<ChatPage> {
             ),
           ),
 
-          // kolom ngisi
+          
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
             decoration: const BoxDecoration(

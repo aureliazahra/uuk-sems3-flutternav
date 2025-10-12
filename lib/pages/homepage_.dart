@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Bar atas: teks FLORIST + ikon profil
+                
                 const Center(
                   child: Text(
                     "FLORIST",
@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage>
 
                 const SizedBox(height: 20),
 
-                // Tulisan Welcome!
+                
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -80,7 +80,7 @@ class _HomePageState extends State<HomePage>
 
                 const SizedBox(height: 20),
 
-                // Tab bar: Wedding / Decor / Gift
+                
                 Container(
                   height: 40,
                   width: double.infinity,
@@ -112,10 +112,10 @@ class _HomePageState extends State<HomePage>
         ),
       ),
 
-      // ✅ Hanya satu TabBarView
+      
       body: TabBarView(
         controller: _tabController,
-        physics: const NeverScrollableScrollPhysics(), // biar hanya bisa klik, gak bisa swipe
+        physics: const NeverScrollableScrollPhysics(), 
         children: const [
           WeddingTab(),
           DecorTab(),

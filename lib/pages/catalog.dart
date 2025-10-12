@@ -65,7 +65,7 @@ class CatalogPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(height: 5),
-                    // Gambar produk
+                    
                     Center(
                       child: FractionallySizedBox(
                         widthFactor: 0.90,
@@ -83,7 +83,7 @@ class CatalogPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 6),
 
-                    // Nama dan harga
+                    
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 12),
                       child: Column(

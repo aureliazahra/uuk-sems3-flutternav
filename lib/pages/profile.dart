@@ -25,7 +25,7 @@ class ProfilePage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // Foto profil
+            
             CircleAvatar(
               radius: 55,
               backgroundColor: const Color(0xfff3f2f7),
@@ -33,7 +33,7 @@ class ProfilePage extends StatelessWidget {
             ),
             const SizedBox(height: 15),
 
-            // Nama & email
+            
             const Text(
               "Aurelia Zahra",
               style: TextStyle(
@@ -54,12 +54,12 @@ class ProfilePage extends StatelessWidget {
             const SizedBox(height: 25),
             const Divider(),
 
-            // Tombol menu
+            
             _buildProfileItem(
               icon: Icons.edit_outlined,
               title: "Edit Profile",
               onTap: () {
-                // TODO: Arahkan ke halaman edit
+                
               },
             ),
             _buildProfileItem(
@@ -81,7 +81,7 @@ class ProfilePage extends StatelessWidget {
             const Divider(),
             const SizedBox(height: 10),
 
-            // Tombol logout
+            
             SizedBox(
               width: double.infinity,
               child: ElevatedButton.icon(
@@ -102,7 +102,7 @@ class ProfilePage extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
-                  // TODO: Tambahkan logika logout
+                  
                 },
               ),
             ),
@@ -112,7 +112,7 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  // 🔹 Widget reusable untuk item menu
+  
   Widget _buildProfileItem({
     required IconData icon,
     required String title,

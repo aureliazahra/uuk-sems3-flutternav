@@ -10,7 +10,7 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
-  bool _isProcessing = false; // <-- untuk men-disable tombol saat processing
+  bool _isProcessing = false; 
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +104,7 @@ class _CartPageState extends State<CartPage> {
                   ),
                 ),
 
-                // total + checkout
+                
                 Container(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
@@ -129,7 +129,7 @@ class _CartPageState extends State<CartPage> {
                         ),
                       ),
 
-                      // Tombol Checkout: disable saat processing
+                      
                       ElevatedButton(
                         onPressed: _isProcessing ? null : () => _handleCheckout(context),
                         style: ElevatedButton.styleFrom(
@@ -181,12 +181,12 @@ class _CartPageState extends State<CartPage> {
 
     setState(() => _isProcessing = true);
 
-    // 1) Tampilkan dialog loading (opsional)
+    
     showDialog(
       context: context,
       barrierDismissible: false,
       builder: (_) => WillPopScope(
-        // mencegah dialog ditutup paksa
+        
         onWillPop: () async => false,
         child: Center(
           child: Container(
@@ -201,23 +201,23 @@ class _CartPageState extends State<CartPage> {
       ),
     );
 
-    // 2) Simulasi proses — misal 2 detik
+    
     await Future.delayed(const Duration(seconds: 2));
 
-    // 3) Tutup dialog loading
+    
     if (mounted) Navigator.of(context).pop();
 
-    // 4) Clear cart (simulasi checkout sukses)
+    
     CartData.clearCart();
 
-    // 5) Update UI
+    
     if (mounted) {
       setState(() {
         _isProcessing = false;
       });
     }
 
-    // 6) Tampilkan halaman sukses / atau Snackbar
+    
     if (mounted) {
       Navigator.push(
         context,
@@ -227,7 +227,7 @@ class _CartPageState extends State<CartPage> {
   }
 }
 
-// Halaman success sederhana
+
 class OrderSuccessPage extends StatelessWidget {
   const OrderSuccessPage({super.key});
 
@@ -263,7 +263,7 @@ class OrderSuccessPage extends StatelessWidget {
               ElevatedButton(
                 style: ElevatedButton.styleFrom(backgroundColor: const Color(0xff9682B6)),
                 onPressed: () {
-                  // kembali ke home atau tutup sampai root
+                  
                   Navigator.of(context).popUntil((route) => route.isFirst);
                 },
                 child: const Text("Back to Home", style: TextStyle(color: Colors.white),),

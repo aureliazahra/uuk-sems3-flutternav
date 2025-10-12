@@ -6,7 +6,6 @@ class CartData {
   static void addToCart(CartItem item) {
     final index = items.indexWhere((e) => e.product.name == item.product.name);
     if (index != -1) {
-      // kalau produk sudah ada, tambahkan jumlahnya
       items[index].quantity += item.quantity;
     } else {
       items.add(item);

@@ -14,7 +14,6 @@ class MainNavigation extends StatefulWidget {
 class _MainNavigationState extends State<MainNavigation> {
   int _selectedIndex = 0;
 
-  // Daftar halaman yang akan ditampilkan sesuai tab yang diklik
   final List<Widget> _pages = const [
     HomePage(),
     CatalogPage(),
@@ -38,7 +37,7 @@ class _MainNavigationState extends State<MainNavigation> {
         onTap: _onItemTapped,
         type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.white,
-        selectedItemColor: const Color(0xff5B2E90), // warna ungu khas
+        selectedItemColor: const Color(0xff5B2E90),
         unselectedItemColor: Colors.grey,
         showUnselectedLabels: true,
         selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w600),

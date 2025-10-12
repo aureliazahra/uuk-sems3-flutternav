@@ -8,7 +8,7 @@ class PopularSliderTemplate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ambil produk sesuai kategori
+    
     final filteredProducts = getProductsByCategory(
       mainCategory: category,
     );
