@@ -38,7 +38,7 @@ class _ChatPageState extends State<ChatPage> {
     Future.delayed(const Duration(seconds: 1), () {
       setState(() {
         _messages.add({
-          'text': "Got it! We'll get back to you soon 😊",
+          'text': "Hey, how can we help you? <3",
           'isUser': false,
           'time': TimeOfDay.now().format(context),
         });
