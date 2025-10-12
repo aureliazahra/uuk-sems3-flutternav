@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uuk_sems3/pages/chat.dart';
 
 class NeedHelpTemplate extends StatelessWidget {
   final String title;
@@ -14,14 +15,24 @@ class NeedHelpTemplate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 8),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _buildHelpCard(),
-          const SizedBox(height: 20),
-        ],
+    return GestureDetector(
+      onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => ChatPage(),
+                ),
+              );
+            },
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 8),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildHelpCard(),
+            const SizedBox(height: 20),
+          ],
+        ),
       ),
     );
   }

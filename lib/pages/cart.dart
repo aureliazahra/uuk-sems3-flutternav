@@ -10,13 +10,18 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
+  bool _isProcessing = false; // <-- untuk men-disable tombol saat processing
+
   @override
   Widget build(BuildContext context) {
     final cartItems = CartData.items;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("My Cart", style: TextStyle(color: Colors.black87)),
+        title: const Text(
+          "My Cart",
+          style: TextStyle(color: Colors.black87),
+        ),
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         elevation: 1,
@@ -24,7 +29,9 @@ class _CartPageState extends State<CartPage> {
       ),
       backgroundColor: Colors.white,
       body: cartItems.isEmpty
-          ? const Center(child: Text("Your cart is empty."))
+          ? const Center(
+              child: Text("Your cart is empty."),
+            )
           : Column(
               children: [
                 Expanded(
@@ -34,9 +41,7 @@ class _CartPageState extends State<CartPage> {
                       final CartItem item = cartItems[index];
                       return Padding(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 8,
-                        ),
+                            horizontal: 16, vertical: 8),
                         child: Container(
                           padding: const EdgeInsets.all(12),
                           decoration: BoxDecoration(
@@ -63,34 +68,28 @@ class _CartPageState extends State<CartPage> {
                                     Text(
                                       item.product.name,
                                       style: const TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 16,
-                                      ),
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 16),
                                     ),
                                     const SizedBox(height: 6),
                                     Text(
                                       "\$${item.product.price.toStringAsFixed(0)}",
                                       style: const TextStyle(
-                                        color: Color(0xff9682B6),
-                                        fontWeight: FontWeight.w500,
-                                      ),
+                                          color: Color(0xff9682B6),
+                                          fontWeight: FontWeight.w500),
                                     ),
                                     const SizedBox(height: 4),
                                     Text(
                                       "Qty: ${item.quantity}",
                                       style: const TextStyle(
-                                        color: Colors.black54,
-                                        fontSize: 14,
-                                      ),
+                                          color: Colors.black54, fontSize: 14),
                                     ),
                                   ],
                                 ),
                               ),
                               IconButton(
-                                icon: const Icon(
-                                  Icons.delete_outline,
-                                  color: Colors.grey,
-                                ),
+                                icon: const Icon(Icons.delete_outline,
+                                    color: Colors.grey),
                                 onPressed: () {
                                   setState(() {
                                     CartData.removeFromCart(item);
@@ -107,10 +106,8 @@ class _CartPageState extends State<CartPage> {
 
                 // total + checkout
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 24,
-                    vertical: 16,
-                  ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     boxShadow: [
@@ -131,38 +128,150 @@ class _CartPageState extends State<CartPage> {
                           fontWeight: FontWeight.w600,
                         ),
                       ),
+
+                      // Tombol Checkout: disable saat processing
                       ElevatedButton(
-                        onPressed: () {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text("Checkout feature coming soon!"),
-                              backgroundColor: Color(0xff9682B6),
-                            ),
-                          );
-                        },
+                        onPressed: _isProcessing ? null : () => _handleCheckout(context),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xff9682B6),
                           padding: const EdgeInsets.symmetric(
-                            horizontal: 24,
-                            vertical: 12,
-                          ),
+                              horizontal: 24, vertical: 12),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
+                              borderRadius: BorderRadius.circular(10)),
                         ),
-                        child: const Text(
-                          "Checkout",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
+                        child: _isProcessing
+                            ? Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: const [
+                                  SizedBox(
+                                    width: 16,
+                                    height: 16,
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 2,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  SizedBox(width: 8),
+                                  Text("Processing...", style: TextStyle(color: Colors.white)),
+                                ],
+                              )
+                            : const Text(
+                                "Checkout",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
                       ),
                     ],
                   ),
                 ),
               ],
             ),
+    );
+  }
+
+  Future<void> _handleCheckout(BuildContext context) async {
+    if (CartData.items.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Cart is empty')),
+      );
+      return;
+    }
+
+    setState(() => _isProcessing = true);
+
+    // 1) Tampilkan dialog loading (opsional)
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => WillPopScope(
+        // mencegah dialog ditutup paksa
+        onWillPop: () async => false,
+        child: Center(
+          child: Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: const CircularProgressIndicator(),
+          ),
+        ),
+      ),
+    );
+
+    // 2) Simulasi proses — misal 2 detik
+    await Future.delayed(const Duration(seconds: 2));
+
+    // 3) Tutup dialog loading
+    if (mounted) Navigator.of(context).pop();
+
+    // 4) Clear cart (simulasi checkout sukses)
+    CartData.clearCart();
+
+    // 5) Update UI
+    if (mounted) {
+      setState(() {
+        _isProcessing = false;
+      });
+    }
+
+    // 6) Tampilkan halaman sukses / atau Snackbar
+    if (mounted) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (_) => const OrderSuccessPage()),
+      );
+    }
+  }
+}
+
+// Halaman success sederhana
+class OrderSuccessPage extends StatelessWidget {
+  const OrderSuccessPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Order Complete'),
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        elevation: 1,
+      ),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 28),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.check_circle_outline, size: 96, color: const Color(0xff9682B6)),
+              const SizedBox(height: 20),
+              const Text(
+                "Thank you!",
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+              ),
+              const SizedBox(height: 12),
+              const Text(
+                "Payment verified, order confirmed, happiness incoming!",
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.black54),
+              ),
+              const SizedBox(height: 24),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(backgroundColor: const Color(0xff9682B6)),
+                onPressed: () {
+                  // kembali ke home atau tutup sampai root
+                  Navigator.of(context).popUntil((route) => route.isFirst);
+                },
+                child: const Text("Back to Home", style: TextStyle(color: Colors.white),),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
