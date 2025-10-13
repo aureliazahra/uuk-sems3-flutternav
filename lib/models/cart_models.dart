@@ -1,5 +1,7 @@
 import 'package:uuk_sems3/models/product_model.dart';
 
+
+//hanya struktur satu produk di cart
 class CartItem {
   final Product product;
   int quantity;

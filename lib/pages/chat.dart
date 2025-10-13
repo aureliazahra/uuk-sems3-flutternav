@@ -12,12 +12,14 @@ class _ChatPageState extends State<ChatPage> {
   final TextEditingController _controller = TextEditingController();
   final ScrollController _scrollController = ScrollController();
 
-  void _sendMessage() {
+
+  
+  void _sendMessage() { //kirim pesan
     final text = _controller.text.trim();
     if (text.isEmpty) return;
 
     setState(() {
-      _messages.add({
+      _messages.add({ //tambahkan chat ke _messasges dan kosongkan textfieldnya
         'text': text,
         'isUser': true,
         'time': TimeOfDay.now().format(context),
@@ -26,7 +28,7 @@ class _ChatPageState extends State<ChatPage> {
     _controller.clear();
 
     
-    Future.delayed(const Duration(milliseconds: 100), () {
+    Future.delayed(const Duration(milliseconds: 100), () { //otomatis geesr ke bawah stlh ngirim teks
       _scrollController.animateTo(
         _scrollController.position.maxScrollExtent + 60,
         duration: const Duration(milliseconds: 300),
@@ -35,7 +37,7 @@ class _ChatPageState extends State<ChatPage> {
     });
 
     
-    Future.delayed(const Duration(seconds: 1), () {
+    Future.delayed(const Duration(seconds: 1), () { //balasan pesan otomatis si bot 
       setState(() {
         _messages.add({
           'text': "Hey, how can we help you? <3",
@@ -73,7 +75,7 @@ class _ChatPageState extends State<ChatPage> {
               itemCount: _messages.length,
               itemBuilder: (context, index) {
                 final msg = _messages[index];
-                final isUser = msg['isUser'] as bool;
+                final isUser = msg['isUser'] as bool; //cek, true user, false bot
 
                 return Align(
                   alignment: isUser

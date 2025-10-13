@@ -21,7 +21,7 @@ class CatalogPage extends StatelessWidget {
         title: Text(
           category == null
               ? "All Products"
-              : "${category![0].toUpperCase()}${category!.substring(1)} Products",
+              : "${category![0].toUpperCase()}${category!.substring(1)} Products", //disesuaiin produknya
         ),
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,

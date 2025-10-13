@@ -152,7 +152,7 @@ final Map<String, Map<String, String>> productCategories = {
   "White Dress": {"main": "gift", "sub": "dress"},
 };
 
-// 🪞 Fungsi filter berdasarkan kategori utama & subkategori
+// filter berdasarkan category n subcategory
 List<Product> getProductsByCategory({
   String? mainCategory,
   String? subCategory,

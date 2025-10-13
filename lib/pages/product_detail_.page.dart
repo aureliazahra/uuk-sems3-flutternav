@@ -59,7 +59,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 ),
               ),
 
-              Positioned(
+              Positioned( //indikator slide
                 bottom: 12,
                 left: 0,
                 right: 0,
@@ -67,7 +67,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: images.asMap().entries.map((entry) {
                     final bool isActive = _currentImage == entry.key;
-                    return AnimatedContainer(
+                    return AnimatedContainer( 
                       duration: const Duration(milliseconds: 250),
                       margin: const EdgeInsets.symmetric(horizontal: 3),
                       width: isActive ? 24 : 10,

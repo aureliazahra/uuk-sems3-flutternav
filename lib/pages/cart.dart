@@ -10,7 +10,7 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
-  bool _isProcessing = false; 
+  bool _isProcessing = false; //apkh sdg proses co
 
   @override
   Widget build(BuildContext context) {
@@ -18,10 +18,7 @@ class _CartPageState extends State<CartPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "My Cart",
-          style: TextStyle(color: Colors.black87),
-        ),
+        title: const Text("My Cart", style: TextStyle(color: Colors.black87)),
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         elevation: 1,
@@ -29,9 +26,7 @@ class _CartPageState extends State<CartPage> {
       ),
       backgroundColor: Colors.white,
       body: cartItems.isEmpty
-          ? const Center(
-              child: Text("Your cart is empty."),
-            )
+          ? const Center(child: Text("Your cart is empty."))
           : Column(
               children: [
                 Expanded(
@@ -41,7 +36,9 @@ class _CartPageState extends State<CartPage> {
                       final CartItem item = cartItems[index];
                       return Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 8),
+                          horizontal: 16,
+                          vertical: 8,
+                        ),
                         child: Container(
                           padding: const EdgeInsets.all(12),
                           decoration: BoxDecoration(
@@ -68,28 +65,34 @@ class _CartPageState extends State<CartPage> {
                                     Text(
                                       item.product.name,
                                       style: const TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 16),
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 16,
+                                      ),
                                     ),
                                     const SizedBox(height: 6),
                                     Text(
                                       "\$${item.product.price.toStringAsFixed(0)}",
                                       style: const TextStyle(
-                                          color: Color(0xff9682B6),
-                                          fontWeight: FontWeight.w500),
+                                        color: Color(0xff9682B6),
+                                        fontWeight: FontWeight.w500,
+                                      ),
                                     ),
                                     const SizedBox(height: 4),
                                     Text(
                                       "Qty: ${item.quantity}",
                                       style: const TextStyle(
-                                          color: Colors.black54, fontSize: 14),
+                                        color: Colors.black54,
+                                        fontSize: 14,
+                                      ),
                                     ),
                                   ],
                                 ),
                               ),
                               IconButton(
-                                icon: const Icon(Icons.delete_outline,
-                                    color: Colors.grey),
+                                icon: const Icon(
+                                  Icons.delete_outline,
+                                  color: Colors.grey,
+                                ),
                                 onPressed: () {
                                   setState(() {
                                     CartData.removeFromCart(item);
@@ -104,10 +107,11 @@ class _CartPageState extends State<CartPage> {
                   ),
                 ),
 
-                
                 Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24,
+                    vertical: 16,
+                  ),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     boxShadow: [
@@ -129,15 +133,20 @@ class _CartPageState extends State<CartPage> {
                         ),
                       ),
 
-                      
                       ElevatedButton(
-                        onPressed: _isProcessing ? null : () => _handleCheckout(context),
+                        //tombol co
+                        onPressed: _isProcessing
+                            ? null
+                            : () => _handleCheckout(context),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xff9682B6),
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 24, vertical: 12),
+                            horizontal: 24,
+                            vertical: 12,
+                          ),
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
                         ),
                         child: _isProcessing
                             ? Row(
@@ -152,7 +161,10 @@ class _CartPageState extends State<CartPage> {
                                     ),
                                   ),
                                   SizedBox(width: 8),
-                                  Text("Processing...", style: TextStyle(color: Colors.white)),
+                                  Text(
+                                    "Processing...",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
                                 ],
                               )
                             : const Text(
@@ -172,21 +184,22 @@ class _CartPageState extends State<CartPage> {
   }
 
   Future<void> _handleCheckout(BuildContext context) async {
+    //co kosong
     if (CartData.items.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Cart is empty')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Cart is empty')));
       return;
     }
 
     setState(() => _isProcessing = true);
 
-    
     showDialog(
+      //pop up load
       context: context,
       barrierDismissible: false,
       builder: (_) => WillPopScope(
-        
+        //disable tombol back selama load
         onWillPop: () async => false,
         child: Center(
           child: Container(
@@ -201,23 +214,18 @@ class _CartPageState extends State<CartPage> {
       ),
     );
 
-    
     await Future.delayed(const Duration(seconds: 2));
 
-    
-    if (mounted) Navigator.of(context).pop();
+    if (mounted) Navigator.of(context).pop(); //tutup load
 
-    
-    CartData.clearCart();
+    CartData.clearCart(); //hapus item di cart
 
-    
     if (mounted) {
       setState(() {
         _isProcessing = false;
       });
     }
 
-    
     if (mounted) {
       Navigator.push(
         context,
@@ -226,7 +234,6 @@ class _CartPageState extends State<CartPage> {
     }
   }
 }
-
 
 class OrderSuccessPage extends StatelessWidget {
   const OrderSuccessPage({super.key});
@@ -246,7 +253,11 @@ class OrderSuccessPage extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(Icons.check_circle_outline, size: 96, color: const Color(0xff9682B6)),
+              Icon(
+                Icons.check_circle_outline,
+                size: 96,
+                color: const Color(0xff9682B6),
+              ),
               const SizedBox(height: 20),
               const Text(
                 "Thank you!",
@@ -261,12 +272,16 @@ class OrderSuccessPage extends StatelessWidget {
               ),
               const SizedBox(height: 24),
               ElevatedButton(
-                style: ElevatedButton.styleFrom(backgroundColor: const Color(0xff9682B6)),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xff9682B6),
+                ),
                 onPressed: () {
-                  
-                  Navigator.of(context).popUntil((route) => route.isFirst);
+                  Navigator.of(context).popUntil((route) => route.isFirst); //ngembaliin ke halaman paling awal yakni homepage
                 },
-                child: const Text("Back to Home", style: TextStyle(color: Colors.white),),
+                child: const Text(
+                  "Back to Home",
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
             ],
           ),
